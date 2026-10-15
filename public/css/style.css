@@ -1,0 +1,107 @@
+/* === Tema Gelap Nyentrik untuk CRUD Laravel === */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    background: radial-gradient(circle at top left, #0d0d0d, #1a0033 80%);
+    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Container utama */
+.container {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+    padding: 30px;
+    backdrop-filter: blur(8px);
+}
+
+/* Judul */
+h1, h2, h3 {
+    color: #b57bff;
+    font-weight: 600;
+    text-shadow: 0 0 10px #7f00ff;
+}
+
+/* Tombol */
+.btn {
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px transparent;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #7f00ff, #00e5ff);
+    border: none;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 15px #00e5ff;
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background: linear-gradient(135deg, #ff005c, #ff6600);
+    border: none;
+}
+
+.btn-danger:hover {
+    box-shadow: 0 0 15px #ff6600;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: linear-gradient(135deg, #00ffb3, #00b3ff);
+    border: none;
+}
+
+.btn-success:hover {
+    box-shadow: 0 0 15px #00b3ff;
+    transform: translateY(-2px);
+}
+
+/* Tabel */
+.table {
+    color: #e0e0e0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table thead {
+    background: linear-gradient(135deg, #6a00ff, #00c6ff);
+    color: #fff;
+}
+
+.table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Form */
+.form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    border-color: #7f00ff;
+    box-shadow: 0 0 8px #7f00ff;
+}
+
+/* Link */
+a {
+    color: #00e5ff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #b57bff;
+    text-shadow: 0 0 10px #b57bff;
+}

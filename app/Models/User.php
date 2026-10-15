@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Employee; 
 
 class User extends Authenticatable
 {
@@ -20,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'employee_id',
+        'role',
     ];
 
     /**
@@ -43,5 +46,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function employee(){
+        return $this->hasOne(Employee::class, 'email', 'email');
+    }
+
+    public function isAdmin(): bool{
+        return $this->role === 'admin';
+    }
+
+    public function isHr(): bool{
+        return $this->role === 'hr';
+    }
+
+    public function isEmployee(): bool{
+        return $this->role === 'employee';
     }
 }
