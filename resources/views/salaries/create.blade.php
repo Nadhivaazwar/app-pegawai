@@ -66,7 +66,7 @@
 
             <div class="mb-3">
                 <label for="bulan" class="form-label">Bulan:</label>
-                <input type="text" id="bulan" name="bulan" class="form-control" placeholder="Contoh: Oktober" required>
+                <input type="month" id="bulan" name="bulan" class="form-control" value="{{ old('bulan') }}" required>
             </div>
 
             <div class="mb-3">

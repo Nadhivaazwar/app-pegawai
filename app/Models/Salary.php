@@ -14,6 +14,7 @@ class Salary extends Model
         'bulan',
         'gaji_pokok',
         'tunjangan',
+        'lembur',
         'potongan',
         'total_gaji',
     ];

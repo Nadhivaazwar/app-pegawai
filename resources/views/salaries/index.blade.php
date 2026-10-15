@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Gaji Pegawai</title>
+    <title>Data Gaji Pegawai</title>
 
-    <!-- Bootstrap -->
+    <!-- ✅ Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -58,81 +58,92 @@
 </head>
 
 <body>
-@extends('master')
-@section('title', 'Daftar Gaji Pegawai')
-@section('content')
+    @extends('master')
+    @section('title', 'Data Gaji Pegawai')
+    @section('content')
 
-<div class="container mt-5">
-    <div class="card p-4">
-        <h1 class="mb-4 text-center">Daftar Gaji Pegawai</h1>
+    <div class="container mt-5">
+        <div class="card p-4">
+            <h1 class="mb-4 text-center">Daftar Gaji Pegawai</h1>
 
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <a href="{{ route('salaries.create') }}" class="btn btn-primary">
-                + Tambah Data Gaji
-            </a>
-        </div>
-
-        {{-- Pesan sukses --}}
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <a href="{{ route('salaries.create') }}" class="btn btn-primary">
+                    + Tambah Data Gaji
+                </a>
             </div>
-        @endif
 
-        {{-- Tabel daftar gaji --}}
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered align-middle">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Pegawai</th>
-                        <th>Bulan</th>
-                        <th>Gaji Pokok</th>
-                        <th>Tunjangan</th>
-                        <th>Potongan</th>
-                        <th>Total Gaji</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($salaries as $index => $salary)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $salary->employee->nama_lengkap ?? '-' }}</td>
-                        <td>{{ $salary->bulan }}</td>
-                        <td>Rp{{ number_format($salary->gaji_pokok, 0, ',', '.') }}</td>
-                        <td>Rp{{ number_format($salary->tunjangan, 0, ',', '.') }}</td>
-                        <td>Rp{{ number_format($salary->potongan, 0, ',', '.') }}</td>
-                        <td><strong>Rp{{ number_format($salary->total_gaji, 0, ',', '.') }}</strong></td>
-                        <td>
-                            <a href="{{ route('salaries.edit', $salary->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                            <form action="{{ route('salaries.destroy', $salary->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" onclick="return confirm('Yakin ingin menghapus data ini?')" class="btn btn-sm btn-danger">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="8" class="text-center text-muted">Belum ada data gaji.</td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+            {{-- Pesan sukses --}}
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-        {{-- Pagination --}}
-        <div class="d-flex justify-content-center mt-3">
-            {{ $salaries->links() }}
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered align-middle">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Bulan</th>
+                            <th>Gaji Pokok</th>
+                            <th>Tunjangan</th>
+                            <th>Lembur</th>
+                            <th>Potongan</th>
+                            <th>Total Gaji</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($salaries as $salary)
+                            <tr>
+                                <td>{{ $salary->employee->nama_lengkap ?? '-' }}</td>
+                                <td>{{ $salary->bulan }}</td>
+                                <td>Rp{{ number_format($salary->gaji_pokok, 0, ',', '.') }}</td>
+                                <td>Rp{{ number_format($salary->tunjangan, 0, ',', '.') }}</td>
+                                <td>Rp{{ number_format($salary->lembur, 0, ',', '.') }}</td>
+                                <td>Rp{{ number_format($salary->potongan, 0, ',', '.') }}</td>
+                                <td><strong>Rp{{ number_format($salary->total_gaji, 0, ',', '.') }}</strong></td>
+                                <td>
+                                    <a href="{{ route('salaries.show', $salary->id) }}" class="btn btn-sm btn-info text-white">
+                                        Detail
+                                    </a>
+                                    <a href="{{ route('salaries.edit', $salary->id) }}" class="btn btn-sm btn-warning">
+                                        Edit
+                                    </a>
+                                    <form action="{{ route('salaries.destroy', $salary->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                onclick="return confirm('Yakin ingin menghapus data ini?')"
+                                                class="btn btn-sm btn-danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="8" class="text-center text-muted">
+                                    Belum ada data gaji.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            {{-- Pagination (kalau pakai paginate) --}}
+            @if(method_exists($salaries, 'links'))
+                <div class="d-flex justify-content-center mt-3">
+                    {{ $salaries->links() }}
+                </div>
+            @endif
         </div>
     </div>
-</div>
 
-@endsection
+    @endsection
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- ✅ Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
